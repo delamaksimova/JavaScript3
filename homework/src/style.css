@@ -1,3 +1,77 @@
-.alert-error {
+body {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: whitesmoke;
+    font-family: sans-serif;
+    margin-top: 0;
+    color: lightslategray;
+}
+
+#alert-error {
     color: red;
+    padding: 0.5em;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(156, 129, 159);
+    padding: 2em 5em 2em 5em;
+}
+
+.header-title {
+    color: rgb(255, 255, 255);
+    font-size: 1.3em;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    color: lightslategray;
+}
+
+.infoBox, .contributorBox {
+    background-color: white;
+    margin: 1em 0.5em 1em 0.5em;
+    padding: 1em 0.5em 1em 0.5em;
+    border-radius: 0.5em;
+}
+
+.label, .contributor-name, .contributor-header {
+    text-decoration: none;
+    color: rgb(156, 129, 159);
+    font-weight: bold;
+    margin: none;
+}
+
+.contributor-item {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.contributor-avatar {
+    border-radius: 50%;
+    width: 3em;
+}
+
+/* responsive design */
+@media (min-width: 768px) {
+     #container {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            color: lightslategray;
+        }
+    .infoBox, .contributorBox {
+        background-color: white;
+        flex: 1;
+        margin: 1em 0.5em 1em 0.5em;
+        padding: 1em 0.5em 1em 0.5em;
+        border-radius: 0.5em;
+    }
 }
