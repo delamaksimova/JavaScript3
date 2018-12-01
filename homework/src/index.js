@@ -34,32 +34,30 @@
     fetchJSON(url, (err, data) => {
       
       const root = document.getElementById('root');
+      // creating header with a title and dropdown-menu
+      const header = createAndAppend('header', root, { class: "header" });
+      const headerTitle = createAndAppend('p', header, { text: "HYF Repositories" });
+      const selector = createAndAppend('select', header, {
+        class: 'repo-selector',
+        'aria-label': "HYF Repositories"
+      });
       
       if (err) {
         createAndAppend('div', root, { text: err.message, class: 'alert-error' });
       } else {
-        // creating header with a title and dropdown-menu
-        const header = createAndAppend('header', root, { class: "header" });
-        const headerTitle = createAndAppend('p', header, { text: "HYF Repositories" });
-        const selector = createAndAppend('select', header, {
-          class: 'repo-selector',
-          'aria-label': "HYF Repositories"
-        });
         // container
         const container = createAndAppend('div', root, {id: "container" });
         selector.onchange = () => showInfo(selector.options[selector.selectedIndex].text, container); // !!
-        // sorting repos 
+        // sorting repos
         data.sort((a, b) => (a.name).localeCompare(b.name)); // explain!
         // an array of repo options
         const optionArray = [];
         for(let i = 0; i < data.length; i++) {
           let option = createAndAppend('option', selector, { value: i, text: data[i].name});
           optionArray.push(option);    
-        };
-
-        showInfo(selector.options[0].text, container); // chooses the first option in selector
-        
-      }
+      };
+      showInfo(selector.options[0].text, container); // chooses the first option in selector
+    }
     })
   }
 
@@ -74,7 +72,7 @@
     // fetching data for InfoBox - ROW 1
     fetchJSON('https://api.github.com/repos/HackYourFuture/' + repo, (err, data) => {
       if (err) {
-        createAndAppend('td', repoRow, { text: err.message, class: 'alert-error' });
+        createAndAppend('div', repoRow, { text: err.message, class: 'alert-error' });
       } else {
         const row1A = createAndAppend('td', row1, { class: "label", text: "Repository: " });
         const row1B = createAndAppend('td', row1, {});
@@ -96,7 +94,8 @@
       // ROW 4 - 'updated' row
       const row4 = createAndAppend('tr', tableBody, {});
       const row4A = createAndAppend('td', row4, { class: "label", text: "Updated: " });
-      const row4B = createAndAppend('td', row4, { text: data.updated_at });
+      const date = new Date(data.updated_at).toUTCString();
+      const row4B = createAndAppend('td', row4, { text: date });
     });
     
     // contributorBox with unordered list of contributors
@@ -108,7 +107,7 @@
     // fetching data for contributorBox list array
     fetchJSON('https://api.github.com/repos/HackYourFuture/' + repo + '/contributors', (err, data) => {
       if (err) {
-        createAndAppend('td', repoRow, { text: err.message, class: 'alert-error' });
+        createAndAppend('div', repoRow, { text: err.message, class: 'alert-error' });
       } else {
         for (let i = 0; i < data.length; i++) {
           let contributorItem = createAndAppend('li', contributorList, { class: "contributor-item", 'aria-label': data[i].login });
